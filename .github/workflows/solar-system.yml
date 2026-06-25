@@ -21,7 +21,7 @@ jobs:
         node-version: 20
 
     - name: Install dependencies
-      uses: npm Install
+      uses: npm install
 
     - name: Unit testing
       uses: npm test
