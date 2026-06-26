@@ -25,6 +25,12 @@ jobs:
       with:
         node-version: 24
 
+    - name: Cache npm dependencies
+      uses: actions/cache@v6
+      with:
+        path: node_modules
+        key: ${{ runner.os }}-node-modules-${{ hashFiles('package-lock.json')}}
+
     - name: Install dependencies
       run: npm install
 
@@ -50,6 +56,12 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: 24
+
+    - name: Cache npm dependencies
+      uses: actions/cache@v6
+      with:
+        path: node_modules
+        key: ${{ runner.os }}-node-modules-${{ hashFiles('package-lock.json')}}
 
     - name: Install dependencies
       run: npm install
