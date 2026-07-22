@@ -91,7 +91,7 @@ jobs:
           username: ${{ vars.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build and push
+      - name: Docker Build
         uses: docker/build-push-action@v4
         with:
           context: .
@@ -113,6 +113,13 @@ jobs:
 
           echo Testing image using wget
           wget -q -O - 127.0.0.1:3000/live || grep live
+
+      - name: Docker Push
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: ${{ vars.DOCKER_USERNAME }}/solar-system:${{ github.sha }}
       
   # dev-deploy:
   #   needs: docker
