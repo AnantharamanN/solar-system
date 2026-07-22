@@ -77,21 +77,36 @@ jobs:
         path: coverage
         retention-days: 5
 
-  dev-deploy:
-    needs: docker
+  docker:
+    name: Containerization
+    needs: [unit-testing, code-coverage]
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout repo
-      uses: actions/checkout@v7
+      - name: Checkout repo
+        uses: actions/checkout@v7
+        
+      - name: Dockerhub login
+        uses: docker/login-action@v2.2.0
+        with:
+          username: ${{ vars.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      
 
-    - name: Install kuibectl cli
-      uses: azure/setup-kubectl@v4
-      with:
-        version: '1.36.0' # default is latest stable
-        id: install
+  # dev-deploy:
+  #   needs: docker
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - name: Checkout repo
+  #     uses: actions/checkout@v7
 
-    - name: Fetc K8s cluster details
-      run: |
-        kubectl version --short
-        echo ---------------------------------------
-        kubectl get nodes
+  #   - name: Install kubectl cli
+  #     uses: azure/setup-kubectl@v4
+  #     with:
+  #       version: '1.36.0' # default is latest stable
+  #       id: install
+
+  #   - name: Fetch K8s cluster details
+  #     run: |
+  #       kubectl version --short
+  #       echo ---------------------------------------
+  #       kubectl get nodes
