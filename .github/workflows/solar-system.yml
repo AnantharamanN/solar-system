@@ -100,7 +100,7 @@ jobs:
         uses: docker/login-action@v4
         with:
           registry: ghcr.io
-          username: anantharamann     #  ${{ github.repository_owner }}
+          username: anantharamann 
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Docker Build
