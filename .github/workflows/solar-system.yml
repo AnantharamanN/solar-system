@@ -146,7 +146,6 @@ jobs:
       uses: azure/setup-kubectl@v4
       with:
         version: '1.36.0' # default is latest stable
-        id: install
 
     - name: Fetch K8s cluster details
       run: |
